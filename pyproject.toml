@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "url-prober"
+version = "0.1.0"
+description = "A tool for probing URLs and checking their availability"
+authors = ["Andrew Vella"]
+readme = "README.md"
+packages = [{include = "url_prober", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.31.0"
+click = "^8.1.0"
+rich = "^13.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+flake8 = "^6.1.0"
+
+[tool.poetry.scripts]
+url-prober = "url_prober.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api" 
