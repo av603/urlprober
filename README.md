@@ -1,7 +1,8 @@
-# url-prober
-Requests a specified `url` and returns the response. Used for network infrastructure probing and diagnostics.
+# URL Prober
 
-## Development Setup
+A Python tool for network infrastructure probing and diagnostics.
+
+## Running the Application
 
 ### Prerequisites
 - Python 3.9 or higher
@@ -9,74 +10,140 @@ Requests a specified `url` and returns the response. Used for network infrastruc
 
 ### Installation
 
-1. Install Poetry if you haven't already:
+1. Clone the repository:
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
+# Using HTTPS
+git clone https://github.com/av603/url-prober.git
+
+# OR using SSH
+git clone git@github.com:av603/url-prober.git
+
+cd url-prober
 ```
 
-2. Install dependencies:
+2. Install with Poetry:
 ```bash
 poetry install
 ```
 
-### Pre-commit Hooks
+### Starting the Server
 
-We use pre-commit hooks to ensure code quality. To set up:
+Basic usage:
+```bash
+poetry run url-prober serve
+```
+
+The server will start with default settings:
+- Host: 127.0.0.1 (localhost only)
+- Port: 5000
+- Debug mode: off
+
+### Custom Configuration
+
+You can customize the server settings:
+
+```bash
+# Run on a different port
+poetry run url-prober serve --port 8080
+
+# Make accessible from other machines
+poetry run url-prober serve --host 0.0.0.0
+
+# Enable debug mode (auto-reload on code changes)
+poetry run url-prober serve --debug
+
+# Combine options
+poetry run url-prober serve --host 0.0.0.0 --port 8080 --debug
+```
+
+### Available Endpoints
+
+- Health Check: `http://127.0.0.1:5000/health`
+  - Returns: `{"status": "healthy"}`
+
+## Development Setup
+
+### Pre-commit Hooks
 
 1. Install the pre-commit hooks:
 ```bash
 poetry run pre-commit install
 ```
 
-2. (Optional) Run hooks against all files:
+### Code Style
+
+The project enforces code quality through pre-commit hooks:
+- Black for code formatting
+- isort for import sorting
+- flake8 for linting:
+  - Maximum line length: 79 characters (PEP 8)
+  - Maximum complexity: 10
+  - Docstring checks enabled
+- Basic file checks (trailing whitespace, YAML syntax, etc.)
+
+These checks run automatically on commit. To run manually:
 ```bash
 poetry run pre-commit run --all-files
 ```
 
-To skip pre-commit hooks temporarily:
-```bash
-git commit -m "Your message" --no-verify
-```
+### Editor Configuration
 
-### Development Commands
+The project includes an `.editorconfig` file to maintain consistent coding styles:
+- UTF-8 encoding
+- Unix-style line endings
+- 4 spaces for Python indentation
+- 79 character line length for Python files
+- 2 spaces for YAML files
 
-- Run tests:
+## Testing
+
+Run the test suite:
 ```bash
 poetry run pytest
 ```
 
-- Run linting:
+With coverage report:
 ```bash
-poetry run flake8
+poetry run pytest --cov=src/
 ```
 
-- Run the tool:
+### Managing Lock File
+
+1. Update lock file without installing packages:
 ```bash
-poetry run url-prober <url>
+poetry lock --no-update
 ```
 
-### Building and Publishing
-
-1. Build the package:
+2. Update lock file and install packages:
 ```bash
-poetry build
+poetry lock
 ```
 
-2. Publish to PyPI (requires appropriate credentials):
+3. Check if lock file is up to date with pyproject.toml:
 ```bash
-poetry publish
-
+poetry lock --check
 ```
 
-### Code Style
-
-The project uses flake8 for linting with the following configuration:
-- Maximum line length: 79 characters (PEP 8 standard)
-- Maximum complexity: 10
-- Ignores E203 (whitespace before ':') to work with Black
-- Excludes common directories and allows unused imports in `__init__.py` files
-
-To run linting manually:
+4. Force update lock file (if you're having issues):
 ```bash
-poetry run flake8
+poetry lock --no-cache
 ```
+
+Note: The lock file (`poetry.lock`) ensures that all developers use the exact same package versions. Always commit this file to version control.
+
+## Contributing
+
+Please see [Contributing Guidelines](CONTRIBUTING.md) for details on:
+
+- Setting up your development environment
+- Code style and standards
+- Pull request process
+- Running tests
+
+# Versioning
+
+This project follows [Semantic Versioning](https://semver.org/). For the versions available, see the [tags on this repository](https://github.com/av603/url-prober/tags).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
