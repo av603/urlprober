@@ -23,17 +23,12 @@ poetry install
 
 We use pre-commit hooks to ensure code quality. To set up:
 
-1. Install pre-commit in your poetry environment:
-```bash
-poetry add --group dev pre-commit
-```
-
-2. Install the pre-commit hooks:
+1. Install the pre-commit hooks:
 ```bash
 poetry run pre-commit install
 ```
 
-3. (Optional) Run hooks against all files:
+2. (Optional) Run hooks against all files:
 ```bash
 poetry run pre-commit run --all-files
 ```
@@ -58,4 +53,30 @@ poetry run flake8
 - Run the tool:
 ```bash
 poetry run url-prober <url>
+```
+
+### Building and Publishing
+
+1. Build the package:
+```bash
+poetry build
+```
+
+2. Publish to PyPI (requires appropriate credentials):
+```bash
+poetry publish
+
+```
+
+### Code Style
+
+The project uses flake8 for linting with the following configuration:
+- Maximum line length: 79 characters (PEP 8 standard)
+- Maximum complexity: 10
+- Ignores E203 (whitespace before ':') to work with Black
+- Excludes common directories and allows unused imports in `__init__.py` files
+
+To run linting manually:
+```bash
+poetry run flake8
 ```
