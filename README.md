@@ -19,6 +19,30 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry install
 ```
 
+### Pre-commit Hooks
+
+We use pre-commit hooks to ensure code quality. To set up:
+
+1. Install pre-commit in your poetry environment:
+```bash
+poetry add --group dev pre-commit
+```
+
+2. Install the pre-commit hooks:
+```bash
+poetry run pre-commit install
+```
+
+3. (Optional) Run hooks against all files:
+```bash
+poetry run pre-commit run --all-files
+```
+
+To skip pre-commit hooks temporarily:
+```bash
+git commit -m "Your message" --no-verify
+```
+
 ### Development Commands
 
 - Run tests:
@@ -34,16 +58,4 @@ poetry run flake8
 - Run the tool:
 ```bash
 poetry run url-prober <url>
-```
-
-### Building and Publishing
-
-1. Build the package:
-```bash
-poetry build
-```
-
-2. Publish to PyPI (requires appropriate credentials):
-```bash
-poetry publish
 ```
