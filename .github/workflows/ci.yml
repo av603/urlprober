@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Fetch all history for all tags and branches
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
@@ -29,8 +31,30 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
-    - name: Lint with flake8
-      run: poetry run flake8 src tests --count --max-line-length=120 --statistics
+    - name: Run pre-commit checks
+      uses: pre-commit/action@v3.0.0
+
+    - name: Check version bump
+      if: github.event_name == 'pull_request' && contains(github.event.pull_request.files, 'pyproject.toml')
+      run: |
+        # Get current version from pyproject.toml
+        NEW_VERSION=$(poetry version -s)
+
+        # Get the latest tag
+        LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+        LATEST_VERSION=${LATEST_TAG#v}
+
+        # Compare versions
+        if [ "$(printf '%s\n' "$LATEST_VERSION" "$NEW_VERSION" | sort -V | head -n1)" = "$NEW_VERSION" ]; then
+          echo "Error: New version ($NEW_VERSION) must be greater than latest version ($LATEST_VERSION)"
+          exit 1
+        fi
+
+        # Ensure version follows semantic versioning (X.Y.Z)
+        if ! [[ $NEW_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Error: Version ($NEW_VERSION) must follow semantic versioning (X.Y.Z)"
+          exit 1
+        fi
 
     - name: Run tests with pytest
       run: poetry run pytest tests/ --cov=src/ --cov-report=xml
