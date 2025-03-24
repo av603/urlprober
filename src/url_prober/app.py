@@ -10,7 +10,7 @@ import requests
 import toml
 from flask import Flask, jsonify, request
 
-from url_prober.utils import get_bool_from_arg, is_valid_url
+from url_prober.utils import is_valid_url
 
 # Configure logging at module level
 logging.basicConfig(
@@ -22,7 +22,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 DEFAULT_TIMEOUT = 10  # seconds
-ALLOWED_METHODS = ["GET", "POST", "PUT"]
+ALLOWED_METHODS = ["GET"]
 VERIFY_SSL = True
 
 
@@ -84,44 +84,24 @@ def handle_request():
         Probe: Object containing response information
     """
     url = request.args.get("url")
-    method = request.args.get("method", "get").upper()
-    timeout = request.args.get("timeout", DEFAULT_TIMEOUT)
-    verify = request.args.get("verify", True)
 
     if not is_valid_url(url):
         return handle_invalid_arg(logger, f"Invalid URL format: {url}", 400)
 
-    if method not in ALLOWED_METHODS:
-        return handle_invalid_arg(
-            logger,
-            (
-                f"Method {method} not allowed.",
-                f"Allowed methods: {', '.join(ALLOWED_METHODS)}",
-            ),
-            405,
-        )
-
-    try:
-        timeout = float(timeout)
-    except ValueError:
-        return handle_invalid_arg(logger, f"Invalid timeout: {timeout}", 400)
-
-    try:
-        verify = get_bool_from_arg(verify)
-    except ValueError:
-        return handle_invalid_arg(logger, f"Invalid verify: {verify}", 400)
-
     # send request to the URL and get the response
     logger.info("Probing URL: %s", url)
     resp = requests.request(
-        method=method, url=url, timeout=timeout, verify=verify
+        method=request.method,
+        url=url,
+        timeout=DEFAULT_TIMEOUT,
+        verify=VERIFY_SSL,
     )
 
     probe_response = Probe(
         probe_url=url,
-        probe_method=method,
-        probe_timeout=timeout,
-        probe_verify=verify,
+        probe_method=request.method,
+        probe_timeout=DEFAULT_TIMEOUT,
+        probe_verify=VERIFY_SSL,
         probe_response_status_code=resp.status_code,
         probe_response_body=resp.text,
         probe_response_headers=dict(resp.headers),
