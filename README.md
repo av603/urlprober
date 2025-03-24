@@ -44,10 +44,9 @@ The `url-prober` tool is available on PiPy and can be installed via pip:
 
 1.  **Install Python 3.9+:** Ensure you have Python 3.9 or a later version installed.
 2.  **Install the package via pip:**
-
-    ```bash
-    pip install url-prober
-    ```
+```bash
+pip install url-prober
+```
 
 How you deploy the `url-prober` tool depends on the type of infrastructure under test e.g. packaged as a `Docker` image or deployed as a cloud function.
 
@@ -56,18 +55,16 @@ How you deploy the `url-prober` tool depends on the type of infrastructure under
 ### Running as a standalone application
 
 1.  **Run the server:**
-
 ```bash
 python -m url_prober --host 0.0.0.0 --port 5000
 ```
 
 2.  **Send a GET request to the server with the `url` parameter:**
+```bash
+curl -s "http://<edge-service-ip>:5000/?url=https://<internal-service-ip>"
+```
 
-    ```bash
-    curl -s "http://<edge-service-ip>:5000/?url=https://<internal-service-ip>"
-    ```
-
-    Replace `<edge-service-ip>` with the IP address or hostname of your externally accessible edge service.
+Replace `<edge-service-ip>` with the IP address or hostname of your externally accessible edge service.
 
 ## Output
 
