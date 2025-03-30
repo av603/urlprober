@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "url-prober"
 version = "0.1.0"
-description = "A tool for probing URLs and checking their availability"
+description = "A tool to request a specified `url` and return the response."
 authors = ["Andrew Vella"]
 readme = "README.md"
 packages = [{include = "url_prober", from = "src"}]
@@ -26,3 +26,7 @@ url-prober = "url_prober.cli:main"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+"Homepage" = "https://github.com/av603/url-prober"
+"Bug Tracker" = "https://github.com/av603/url-prober/issues"
