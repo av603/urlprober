@@ -26,7 +26,3 @@ url-prober = "url_prober.cli:main"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.repositories]
-pypi = { url = "https://pypi.org/simple/" }
-testpypi = { url = "https://test.pypi.org/legacy/" }
