@@ -7,8 +7,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/${{ github.event.repository.name }}
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -23,13 +27,13 @@ jobs:
     - name: Verify version matches tag
       run: |
         VERSION=$(poetry version -s)
-        TAG=${GITHUB_REF#refs/tags/v}
+        TAG=${GITHUB_REF#refs/tags/}
         if [ "$VERSION" != "$TAG" ]; then
           echo "Error: Version in pyproject.toml ($VERSION) does not match tag ($TAG)"
           exit 1
         fi
 
-    - name: Build and publish
+    - name: Build and publish to PyPI
       env:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_API_TOKEN }}
       run: |
