@@ -5,29 +5,29 @@ This tool helps test complex cloud network setups, like those with private servi
 **Use Case** Say you have a Cloud Load Balancer, two Cloud Run services (Service A and Service B) and a Cloud Subnetwork with a static egress IP. You have deployed this infrastructure and want to verify that the Cloud Load Balancer can access Service A, that Service A can access Service B and that requests from Service B appear from the subnetwork static egress IP.
 
 ```
-                                      Internet
-                                          |
-                                          |
-                                      +-------+
-                                      |       |
-                                      | Cloud |
-                                      |  Run  |  (A) - Publicly Accessible
-                                      +-------+
-                                          | (Target URL Parameter)
-                                          |
-                                          v (Internal Network Traffic)
-                                      +-------+
-                                      |       |
-                                      | Cloud |
-                                      |  Run  |  (B) - Internal Service
-                                      +-------+
-                                          | (Outbound Request via Static IP)
-                                          |
-                                          v
-                                      +---------------+
-                                      | External      |
-                                      | Target Server |
-                                      +---------------+
+    Internet
+        |
+        |
+    +-------+
+    |       |
+    | Cloud |
+    |  Run  |  (A) - Publicly Accessible
+    +-------+
+        | (Target URL Parameter)
+        |
+        v (Internal Network Traffic)
+    +-------+
+    |       |
+    | Cloud |
+    |  Run  |  (B) - Internal Service
+    +-------+
+        | (Outbound Request via Static IP)
+        |
+        v
+    +---------------+
+    | External      |
+    | Target Server |
+    +---------------+
 ```
 
 The network connectivity and the public IP can be verified by deploying the `url-prober` tool to Service A and Service B and sending a chained `curl` request to the exposed service and requesting the public IP from `https://api.ipify.org` as the last step in the chain. For example, if the network is configured as per this use case, a `curl` request:
