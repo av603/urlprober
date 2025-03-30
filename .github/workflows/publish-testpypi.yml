@@ -12,6 +12,8 @@ jobs:
     environment:
       name: testpypi
       url: https://test.pypi.org/project/${{ github.event.repository.name }}
+    permissions:
+      id-token: write
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
