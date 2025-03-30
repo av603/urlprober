@@ -1,0 +1,51 @@
+name: Publish to TestPyPI
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+rc[0-9]+'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/${{ github.event.repository.name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python -
+
+      - name: Verify version matches tag
+        run: |
+          VERSION=$(poetry version -s)
+          TAG=${GITHUB_REF#refs/tags/v}
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "Error: Version in pyproject.toml ($VERSION) does not match tag ($TAG)"
+            exit 1
+          fi
+
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Build package
+        run: |
+          poetry build
+
+      - name: Publish to TestPyPI
+        run: |
+          poetry publish -r testpypi --username '__token__' --password '${{ secrets.TEST_PYPI_API_TOKEN }}'
