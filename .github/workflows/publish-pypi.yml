@@ -2,7 +2,7 @@ name: Publish to PyPI
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   publish:
@@ -34,6 +34,7 @@ jobs:
         run: |
           poetry build
       - name: Publish to PyPI
+        if: github.event_name == 'release' && github.ref_name =~ '^refs/tags/[0-9]+\\.[0-9]+\\.[0-9]+$'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://upload.pypi.org/legacy/

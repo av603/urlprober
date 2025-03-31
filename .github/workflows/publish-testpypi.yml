@@ -1,10 +1,9 @@
 name: Publish to TestPyPI
 
 on:
-  push:
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+rc[0-9]+'
+  release:
+    types: [created]
+
 jobs:
   publish:
     name: Publish to Test-PyPI
@@ -35,6 +34,7 @@ jobs:
         run: |
           poetry build
       - name: Publish to Test-PyPI
+        if: github.event_name == 'release' && ( github.ref_name =~ '^refs/tags/[0-9]+\\.[0-9]+\\.[0-9]+$' || github.ref_name =~ '^refs/tags/[0-9]+\\.[0-9]+\\.[0-9]+-rc[0-9]+$' )
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/

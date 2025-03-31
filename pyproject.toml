@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "url-prober"
-version = "0.1.0rc2"
+version = "0.1.0rc3"
 description = "A tool to request a specified `url` and return the response."
 authors = ["Andrew Vella"]
 readme = "README.md"
@@ -8,11 +8,11 @@ packages = [{include = "url_prober", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-requests = "^2.31.0"
 click = "^8.1.0"
 rich = "^13.0.0"
 flask = "^3.0.0"
 toml = "^0.10.2"
+requests = "^2.32.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
