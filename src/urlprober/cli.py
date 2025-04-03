@@ -1,7 +1,8 @@
 """Provide command line interface for URL Prober."""
+
 import click
 
-from url_prober.app import create_app
+from urlprober.app import create_app
 
 
 @click.group()

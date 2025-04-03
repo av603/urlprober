@@ -10,7 +10,7 @@ import requests
 import toml
 from flask import Flask, jsonify, request
 
-from url_prober.utils import is_valid_url
+from urlprober.utils import is_valid_url
 
 # Configure logging at module level
 logging.basicConfig(
@@ -119,7 +119,7 @@ def health_check():
         dict: Health status and version information with format:
             {"status": "healthy", "version": "x.y.z"}
     """
-    version = importlib.metadata.version("url-prober")
+    version = importlib.metadata.version("urlprober")
     logger.info("Health check requested, version: %s", version)
 
     return {

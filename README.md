@@ -30,7 +30,7 @@ This tool helps test complex cloud network setups, like those with private servi
     +---------------+
 ```
 
-The network connectivity and the public IP can be verified by deploying the `url-prober` tool to Service A and Service B and sending a chained `curl` request to the exposed service and requesting the public IP from `https://api.ipify.org` as the last step in the chain. For example, if the network is configured as per this use case, a `curl` request:
+The network connectivity and the public IP can be verified by deploying the `urlprober` tool to Service A and Service B and sending a chained `curl` request to the exposed service and requesting the public IP from `https://api.ipify.org` as the last step in the chain. For example, if the network is configured as per this use case, a `curl` request:
 
 ```bash
 curl -s http://external-cloud-run-service-a-ip/?url=http://internal-cloud-run-service-b-ip/?url=https://api.ipify.org?format=json
@@ -40,15 +40,15 @@ will be received at Service A, then at Service B and finally at `https://api.ipi
 
 ## Installation
 
-The `url-prober` tool is available on PiPy and can be installed via pip:
+The `urlprober` tool is available on PiPy and can be installed via pip:
 
 1.  **Install Python 3.9+:** Ensure you have Python 3.9 or a later version installed.
 2.  **Install the package via pip:**
 ```bash
-pip install url-prober
+pip install urlprober
 ```
 
-How you deploy the `url-prober` tool depends on the type of infrastructure under test e.g. packaged as a `Docker` image or deployed as a cloud function.
+How you deploy the `urlprober` tool depends on the type of infrastructure under test e.g. packaged as a `Docker` image or deployed as a cloud function.
 
 ## Usage
 
@@ -56,7 +56,7 @@ How you deploy the `url-prober` tool depends on the type of infrastructure under
 
 1.  **Run the server:**
 ```bash
-python -m url_prober --host 0.0.0.0 --port 5000
+python -m urlprober --host 0.0.0.0 --port 5000
 ```
 
 2.  **Send a GET request to the server with the `url` parameter:**
@@ -75,7 +75,7 @@ The server will return a JSON object containing detailed information the request
 
 ## Contributing
 
-Please see [Contributing Guidelines](https://github.com/av603/url-prober/blob/main/CONTRIBUTING.md) for details on:
+Please see [Contributing Guidelines](https://github.com/av603/urlprober/blob/main/CONTRIBUTING.md) for details on:
 
 - Setting up your development environment
 - Code style and standards
@@ -84,8 +84,8 @@ Please see [Contributing Guidelines](https://github.com/av603/url-prober/blob/ma
 
 # Versioning
 
-This project follows [Semantic Versioning](https://semver.org/). For the versions available, see the [tags on this repository](https://github.com/av603/url-prober/tags).
+This project follows [Semantic Versioning](https://semver.org/). For the versions available, see the [tags on this repository](https://github.com/av603/urlprober/tags).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/av603/url-prober/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/av603/urlprober/blob/main/LICENSE) file for details.

@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "url-prober"
-version = "0.1.0rc3"
+name = "urlprober"
+version = "0.1.0-rc1"
 description = "A tool to request a specified `url` and return the response."
 authors = ["Andrew Vella"]
 readme = "README.md"
-packages = [{include = "url_prober", from = "src"}]
+packages = [{include = "urlprober", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -21,7 +21,7 @@ flake8 = "^6.1.0"
 pre-commit = "^3.5.0"
 
 [tool.poetry.scripts]
-url-prober = "url_prober.cli:main"
+urlprober = "urlprober.cli:main"
 
 [build-system]
 requires = ["poetry-core"]
