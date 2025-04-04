@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## 0.1.2 (2025-04-04)
+
+### Fixed
+
+- Disable attestations when publishing to PyPI.
+
 ## 0.1.1 (2025-04-04)
 
 ### Fixed
