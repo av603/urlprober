@@ -43,9 +43,13 @@ will be received at Service A, then at Service B and finally at `https://api.ipi
 The `urlprober` tool is available on PiPy and can be installed via pip:
 
 1.  **Install Python 3.9+:** Ensure you have Python 3.9 or a later version installed.
-2.  **Install the package via pip:**
+2.  **Install the package from PyPI using pip:**
 ```bash
 pip install urlprober
+```
+3.  **(optional) Install the package from TestPyPI using pip:**
+```bash
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ urlprober
 ```
 
 How you deploy the `urlprober` tool depends on the type of infrastructure under test e.g. packaged as a `Docker` image or deployed as a cloud function.
