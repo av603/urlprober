@@ -36,7 +36,7 @@ poetry run pre-commit install
 
 Basic usage:
 ```bash
-poetry run urlprober serve
+poetry run urlprober
 ```
 
 The server will start with default settings:
@@ -50,16 +50,16 @@ You can customize the server settings:
 
 ```bash
 # Run on a different port
-poetry run urlprober serve --port 8080
+poetry run urlprober --port 8080
 
 # Make accessible from other machines
-poetry run urlprober serve --host 0.0.0.0
+poetry run urlprober --host 0.0.0.0
 
 # Enable debug mode (auto-reload on code changes)
-poetry run urlprober serve --debug
+poetry run urlprober --debug
 
 # Combine options
-poetry run urlprober serve --host 0.0.0.0 --port 8080 --debug
+poetry run urlprober --host 0.0.0.0 --port 8080 --debug
 ```
 
 ### Editor Configuration

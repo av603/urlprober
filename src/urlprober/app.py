@@ -81,7 +81,7 @@ def handle_request():
 
     if not is_valid_url(url):
         return handle_invalid_arg(
-            logger, f"Missing or invalid `url` arg: {url}", 400
+            logger, f"Missing or invalid `url` arg:{url}", 400
         )
 
     # send request to the URL and get the response
