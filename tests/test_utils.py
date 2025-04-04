@@ -14,7 +14,7 @@ from urlprober.utils import is_valid_url
         ("https://sub.domain.com/path", True),
         ("https://example.com:8080", True),
         ("https://example.com/path?query=1", True),
-        ("http://localhost:5000", True),
+        ("http://localhost:8080", True),
         ("http://127.0.0.1:8080", True),
         # Invalid URLs
         ("", False),

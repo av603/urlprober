@@ -41,7 +41,7 @@ poetry run urlprober serve
 
 The server will start with default settings:
 - Host: 127.0.0.1 (localhost only)
-- Port: 5000
+- Port: 8080
 - Debug mode: off
 
 ### Custom Configuration

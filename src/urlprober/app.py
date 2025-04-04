@@ -86,7 +86,9 @@ def handle_request():
     url = request.args.get("url")
 
     if not is_valid_url(url):
-        return handle_invalid_arg(logger, f"Invalid URL format: {url}", 400)
+        return handle_invalid_arg(
+            logger, f"Missing or invalid `url` arg: {url}", 400
+        )
 
     # send request to the URL and get the response
     logger.info("Probing URL: %s", url)
@@ -141,7 +143,7 @@ def create_app():
         Flask: Configured Flask application instance
     """
     app = Flask(__name__)
-    logger.info("Creating Flask application")
+    logger.debug("Creating Flask application")
 
     app.route("/", methods=ALLOWED_METHODS)(handle_request)
     app.route("/health")(health_check)

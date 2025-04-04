@@ -60,15 +60,22 @@ How you deploy the `urlprober` tool depends on the type of infrastructure under 
 
 1.  **Run the server:**
 ```bash
-python -m urlprober --host 0.0.0.0 --port 5000
+python -m urlprober
+
+# (optionally) run the server with non-default args
+python -m urlprober --host 0.0.0.0 --port 8081 --debug
 ```
 
 2.  **Send a GET request to the server with the `url` parameter:**
 ```bash
-curl -s "http://<edge-service-ip>:5000/?url=https://<internal-service-ip>"
+curl -s "http://<edge-service-ip>:8080/?url=https://<internal-service-ip>"
 ```
 
-Replace `<edge-service-ip>` with the IP address or hostname of your externally accessible edge service.
+Replace `<edge-service-ip>` with the IP address or hostname of your externally accessible edge service. For example, when running as a standalone application on localhost:
+
+```bash
+curl -s "http://127.0.0.1:8080/?url=https://api.ipify.org?format=json"
+```
 
 ## Output
 
