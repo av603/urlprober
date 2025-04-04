@@ -34,7 +34,7 @@ jobs:
         run: |
           poetry build
       - name: Publish to PyPI
-        if: github.event_name == 'release' && re.match('^refs/tags/[0-9]+\\.[0-9]+\\.[0-9]+$', github.ref_name)
+        if: '!github.event.prerelease'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://upload.pypi.org/legacy/
