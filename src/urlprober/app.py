@@ -119,8 +119,14 @@ def health_check():
         dict: Health status and version information with format:
             {"status": "healthy", "version": "x.y.z"}
     """
-    version = importlib.metadata.version("urlprober")
-    logger.info("Health check requested, version: %s", version)
+    try:
+        version = importlib.metadata.version("urlprober")
+        logger.info("Health check requested, version: %s", version)
+    except importlib.metadata.PackageNotFoundError:
+        logger.warning(
+            "Package 'urlprober' not found. Unable to determine version."
+        )
+        version = "unknown"
 
     return {
         "status": "healthy",
@@ -141,9 +147,3 @@ def create_app():
     app.route("/health")(health_check)
 
     return app
-
-
-if __name__ == "__main__":
-    app = create_app()
-    logger.info("Starting Flask application")
-    app.run(debug=True)
