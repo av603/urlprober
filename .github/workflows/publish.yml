@@ -1,4 +1,4 @@
-name: Publish to PyPI
+name: Publish
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    name: Publish to PyPI
+    name: Publish
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -33,6 +33,10 @@ jobs:
       - name: Build
         run: |
           poetry build
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
       - name: Publish to PyPI
         if: github.event.release.prerelease == false
         uses: pypa/gh-action-pypi-publish@release/v1
