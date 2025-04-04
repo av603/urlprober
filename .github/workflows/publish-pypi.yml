@@ -34,7 +34,7 @@ jobs:
         run: |
           poetry build
       - name: Publish to PyPI
-        if: '!github.event.prerelease'
+        if: github.event.release.prerelease == false
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://upload.pypi.org/legacy/
