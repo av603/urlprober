@@ -31,28 +31,22 @@ class Probe:
     """Probe data structure.
 
     Attributes:
-        probe_url: URL that was probed
-        probe_method: HTTP method used
-        probe_timeout: Timeout for the request
-        probe_verify: Whether to verify SSL certificates
+        url: URL that was probed
 
-        probe_response_status_code: HTTP status code from the response
-        probe_response_elapsed_ms: Response time in milliseconds
-        probe_response_final_url: Final URL after redirects
-        probe_response_headers: Response headers
-        probe_response_body: Response body
+        status_code: HTTP status code from the response
+        elapsed_ms: Response time in milliseconds
+        final_url: Final URL after redirects
+        headers: Response headers
+        body: Response body
     """
 
-    probe_url: str
-    probe_method: str
-    probe_timeout: int
-    probe_verify: bool
+    url: str
 
-    probe_response_status_code: int = 0
-    probe_response_elapsed_ms: int = 0
-    probe_response_final_url: str = ""
-    probe_response_headers: Dict[str, str] = field(default_factory=dict)
-    probe_response_body: str = ""
+    status_code: int = 0
+    elapsed_ms: int = 0
+    final_url: str = ""
+    headers: Dict[str, str] = field(default_factory=dict)
+    body: str = ""
 
     def to_json(self):
         """Convert Probe to json."""
@@ -100,15 +94,12 @@ def handle_request():
     )
 
     probe_response = Probe(
-        probe_url=url,
-        probe_method=request.method,
-        probe_timeout=DEFAULT_TIMEOUT,
-        probe_verify=VERIFY_SSL,
-        probe_response_status_code=resp.status_code,
-        probe_response_body=resp.text,
-        probe_response_headers=dict(resp.headers),
-        probe_response_elapsed_ms=resp.elapsed.total_seconds(),
-        probe_response_final_url=resp.url,
+        url=url,
+        status_code=resp.status_code,
+        body=resp.text,
+        headers=dict(resp.headers),
+        elapsed_ms=resp.elapsed.total_seconds(),
+        final_url=resp.url,
     )
 
     return probe_response.to_json()
