@@ -2,6 +2,18 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## 0.2.1 (2025-05-31)
+
+### Fixed
+
+- Updated CHANGELOG.md
+
+## 0.2.0 (2025-05-31)
+
+### Deprecated
+
+- Removed support for Python 3.9.
+
 ## 0.1.2 (2025-04-04)
 
 ### Fixed
