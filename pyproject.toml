@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "urlprober"
-version = "0.2.1"
+version = "0.2.2"
 description = "A tool to request a specified `url` and return the response."
 authors = ["Andrew Vella"]
 readme = "README.md"
